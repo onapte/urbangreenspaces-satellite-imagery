@@ -1,4 +1,3 @@
-data/zipped
-data/data_formatting.ipynb
-load_models
-notebooks
+data
+geoml_project/load_models
+geoml_project/notebooks
