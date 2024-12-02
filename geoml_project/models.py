@@ -80,8 +80,6 @@ class SSD300:
                 for box, label in zip(boxes, labels)
             ]
 
-            print(targets)
-
             loss_dict = self.model(images, targets)
             losses = sum(loss for loss in loss_dict.values())
 
