@@ -7,7 +7,7 @@ TEST_DIR = str(Path(os.getcwd()).parents[0])+'/data/original/test'
 VAL_DIR = str(Path(os.getcwd()).parents[0])+'/data/original/val'
 
 BATCH_SIZE = 8
-NUM_EPOCHS = 1
+NUM_EPOCHS = 5
 NUM_WORKERS = 0
 MODEL_BASE = 'SSD'
 IMAGE_SIZE = 300

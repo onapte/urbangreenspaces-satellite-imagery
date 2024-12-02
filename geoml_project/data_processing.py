@@ -1,17 +1,12 @@
-import torch
-import torchvision.transforms as T
 import numpy as np
 from PIL import Image
-from typing import Dict, List, Tuple
 import os
 import random
 import matplotlib.pyplot as plt
 import matplotlib.patches as patches
-from pathlib import Path
 import albumentations as A
 from albumentations.pytorch import ToTensorV2
 from config import TRAIN_DIR, IMAGE_SIZE
-from sklearn.preprocessing import LabelEncoder
 import sys
 
 class Preprocessor:
@@ -319,12 +314,3 @@ def get_val_transforms():
         'format': 'pascal_voc', 
         'label_fields': ['labels']
     })
-
-# train_ppr = Preprocessor()
-# train_ppr.visualize_random_image()
-# train_ppr.resize_images(400, 400)
-# # # train_ppr.normalize_images()
-# train_ppr.transform_images(get_train_transforms())
-# train_ppr.visualize_random_image()
-
-# # # print(train_ppr.bboxes[0])

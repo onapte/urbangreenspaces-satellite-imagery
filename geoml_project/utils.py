@@ -1,9 +1,16 @@
 import matplotlib.pyplot as plt
-import os
-import torch
 from config import OUT_DIR
 
-def create_loss_plot(loss_data, x_label, y_label, save_name, show=False, save=True, DIR=OUT_DIR):
+def create_loss_plot(
+        loss_data, 
+        x_label, 
+        y_label, 
+        save_name, 
+        show=False, 
+        save=True, 
+        DIR=OUT_DIR
+    ):
+
     fig = plt.figure(figsize=(10, 7), num=1, clear=True)
     ax = fig.add_subplot()
     ax.plot(loss_data, color='tab:blue')
@@ -17,7 +24,16 @@ def create_loss_plot(loss_data, x_label, y_label, save_name, show=False, save=Tr
     if show:
         fig.show()
 
-def create_mAP_plot(data, save_name, show=False, save=True, DIR=OUT_DIR):
+
+
+def create_mAP_plot(
+        data, 
+        save_name, 
+        show=False, 
+        save=True, 
+        DIR=OUT_DIR
+    ):
+
     fig = plt.figure(figsize=(10, 7), num=1, clear=True)
     ax = fig.add_subplot()
 

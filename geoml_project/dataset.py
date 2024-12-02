@@ -1,13 +1,12 @@
 import torch
-from PIL import Image
-import numpy as np
 from torch.utils.data import DataLoader, Dataset
-from data_processing import Preprocessor, get_train_transforms, get_val_transforms
 import torchvision.transforms as T
-from sklearn.preprocessing import LabelEncoder
-from config import TRAIN_DIR, VAL_DIR, BATCH_SIZE, NUM_WORKERS, MODEL_BASE, IMAGE_SIZE
 from itertools import chain
-from torch.nn.utils.rnn import pad_sequence
+
+from config import TRAIN_DIR, VAL_DIR, BATCH_SIZE, NUM_WORKERS, MODEL_BASE, IMAGE_SIZE
+from data_processing import Preprocessor, get_train_transforms, get_val_transforms
+
+
 
 class GeoDataset(Dataset):
     def __init__(self, data, transforms=None, bbox_format='PASCAL_VOC', target_bbox_format='PASCAL_VOC'):
@@ -69,25 +68,12 @@ class GeoDataset(Dataset):
         if self.transforms:
             pass
 
-        # if self.target_bbox_format == "OBB":
-        #     for ix, bbox in bboxes_tensor:
-        #         bbox_mod = torch.as_tensor([bbox[0], 
-        #                                     [bbox[1][0], bbox[0][1]],
-        #                                     bbox[1],
-        #                                     [bbox[0][0], bbox[1][1]]], dtype=torch.float32)
-                
-        #         bboxes_tensor[ix] = bbox_mod
-
-
-        target = {}
-        target['boxes'] = bboxes_tensor
-        target['labels'] = labels_tensor
-
         return image_tensor, bboxes_tensor, labels_tensor
         
     def __len__(self):
         return len(self.PIL_images)
     
+
 def create_train_dataset(DIR=TRAIN_DIR):
     train_ppr = Preprocessor(
         root_dir=DIR,
@@ -107,6 +93,7 @@ def create_train_dataset(DIR=TRAIN_DIR):
     train_dataset = GeoDataset(data)
     return train_dataset
 
+
 def create_val_dataset(DIR=VAL_DIR):
     val_ppr = Preprocessor(
         root_dir=DIR,
@@ -125,6 +112,7 @@ def create_val_dataset(DIR=VAL_DIR):
     val_dataset = GeoDataset(data)
     return val_dataset
 
+
 def create_train_dataloader(train_dataset, num_workers=NUM_WORKERS):
     train_dataloader = DataLoader(
         train_dataset,
@@ -136,6 +124,7 @@ def create_train_dataloader(train_dataset, num_workers=NUM_WORKERS):
     )
 
     return train_dataloader
+
 
 def create_val_dataloader(val_dataset, num_workers=NUM_WORKERS):
     val_dataloader = DataLoader(
@@ -149,41 +138,21 @@ def create_val_dataloader(val_dataset, num_workers=NUM_WORKERS):
 
     return val_dataloader
 
+
 def collate_fn(batch, model_base=MODEL_BASE):
-    # images = []
-    # bboxes = []
-    # labels = []
+    # if model_base == "EffDet":
+    #     images, targets = tuple(zip(*batch))
+    #     images = torch.stack(images)
 
-    # for image, target in batch:
-    #     images.append(image)
-    #     bboxes.append(target['boxes'])
-    #     labels.append(target['labels'])
+    #     boxes = [target['boxes'] for target in targets]
+    #     labels = [target['labels'] for target in targets]
 
-    # images = torch.stack(images, dim=0)
+    #     targets_mod = {
+    #         'bbox': boxes,
+    #         'cls': labels
+    #     }
 
-    # padded_bboxes = pad_sequence(bboxes, batch_first=True, padding_value=-1.0)
-    # padded_labels = pad_sequence(labels, batch_first=True, padding_value=-1.0)
-
-    # targets = [{
-    #     'boxes': padded_bboxes[i],
-    #     'labels': padded_labels[i]
-    # } for i in range(len(batch))]
-
-    # return images, targets
-
-    if model_base == "EffDet":
-        images, targets = tuple(zip(*batch))
-        images = torch.stack(images)
-
-        boxes = [target['boxes'] for target in targets]
-        labels = [target['labels'] for target in targets]
-
-        targets_mod = {
-            'bbox': boxes,
-            'cls': labels
-        }
-
-        return images, targets_mod
+    #     return images, targets_mod
     
     images = list()
     boxes = list()
@@ -197,17 +166,3 @@ def collate_fn(batch, model_base=MODEL_BASE):
     images = torch.stack(images, dim=0)
 
     return images, boxes, labels
-
-    # return tuple(zip(*batch))
-    
-# train_ppr = Preprocessor()
-# train_ppr.resize_images(target_width=416, target_height=416)
-# train_ppr.transform_images(get_train_transforms())
-
-# data = {
-#     'images': train_ppr.images,
-#     'boxes': train_ppr.bboxes,
-#     'labels': train_ppr.labels
-# }
-
-# dataset = GeoDataset(data)
