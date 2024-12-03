@@ -57,7 +57,18 @@ class SSD300:
             optimizer.zero_grad()
             images, boxes, labels = data
 
-            images = images.to(DEVICE)
+            # images = images.to(DEVICE)
+            # boxes = [b.to(DEVICE) for b in boxes]
+            # labels = [l.to(DEVICE) for l in labels]
+
+            filtered_data = [
+                (img, b, l)
+                for img, b, l in zip(images, boxes, labels)
+                if len(b) > 0 and len(l) > 0
+            ]
+
+            images, boxes, labels = zip(*filtered_data)
+            images = torch.stack(images).to(DEVICE) 
             boxes = [b.to(DEVICE) for b in boxes]
             labels = [l.to(DEVICE) for l in labels]
 
@@ -93,7 +104,18 @@ class SSD300:
         for i, data in enumerate(prog_bar):
             images, boxes, labels = data
 
-            images = images.to(DEVICE)
+            # images = images.to(DEVICE)
+            # boxes = [b.to(DEVICE) for b in boxes]
+            # labels = [l.to(DEVICE) for l in labels]
+
+            filtered_data = [
+                (img, b, l)
+                for img, b, l in zip(images, boxes, labels)
+                if len(b) > 0 and len(l) > 0
+            ]
+
+            images, boxes, labels = zip(*filtered_data)
+            images = torch.stack(images).to(DEVICE) 
             boxes = [b.to(DEVICE) for b in boxes]
             labels = [l.to(DEVICE) for l in labels]
 
@@ -166,7 +188,18 @@ class EffDet:
             optimizer.zero_grad()
             images, boxes, labels = data
 
-            images = images.to(DEVICE)
+            # images = images.to(DEVICE)
+            # boxes = [b.to(DEVICE) for b in boxes]
+            # labels = [l.to(DEVICE) for l in labels]
+
+            filtered_data = [
+                (img, b, l)
+                for img, b, l in zip(images, boxes, labels)
+                if len(b) > 0 and len(l) > 0
+            ]
+
+            images, boxes, labels = zip(*filtered_data)
+            images = torch.stack(images).to(DEVICE) 
             boxes = [b.to(DEVICE) for b in boxes]
             labels = [l.to(DEVICE) for l in labels]
 
@@ -202,7 +235,18 @@ class EffDet:
         for i, data in enumerate(prog_bar):
             images, boxes, labels = data
 
-            images = images.to(DEVICE)
+            # images = images.to(DEVICE)
+            # boxes = [b.to(DEVICE) for b in boxes]
+            # labels = [l.to(DEVICE) for l in labels]
+
+            filtered_data = [
+                (img, b, l)
+                for img, b, l in zip(images, boxes, labels)
+                if len(b) > 0 and len(l) > 0
+            ]
+
+            images, boxes, labels = zip(*filtered_data)
+            images = torch.stack(images).to(DEVICE) 
             boxes = [b.to(DEVICE) for b in boxes]
             labels = [l.to(DEVICE) for l in labels]
 
@@ -261,7 +305,18 @@ class FasterRCNN:
             optimizer.zero_grad()
             images, boxes, labels = data
 
-            images = images.to(DEVICE)
+            # images = images.to(DEVICE)
+            # boxes = [b.to(DEVICE) for b in boxes]
+            # labels = [l.to(DEVICE) for l in labels]
+
+            filtered_data = [
+                (img, b, l)
+                for img, b, l in zip(images, boxes, labels)
+                if len(b) > 0 and len(l) > 0
+            ]
+
+            images, boxes, labels = zip(*filtered_data)
+            images = torch.stack(images).to(DEVICE) 
             boxes = [b.to(DEVICE) for b in boxes]
             labels = [l.to(DEVICE) for l in labels]
 
@@ -300,7 +355,18 @@ class FasterRCNN:
         for i, data in enumerate(prog_bar):
             images, boxes, labels = data
 
-            images = images.to(DEVICE)
+            # images = images.to(DEVICE)
+            # boxes = [b.to(DEVICE) for b in boxes]
+            # labels = [l.to(DEVICE) for l in labels]
+
+            filtered_data = [
+                (img, b, l)
+                for img, b, l in zip(images, boxes, labels)
+                if len(b) > 0 and len(l) > 0
+            ]
+
+            images, boxes, labels = zip(*filtered_data)
+            images = torch.stack(images).to(DEVICE) 
             boxes = [b.to(DEVICE) for b in boxes]
             labels = [l.to(DEVICE) for l in labels]
 
