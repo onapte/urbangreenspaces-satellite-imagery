@@ -34,7 +34,7 @@ if __name__ == '__main__':
 
     parser.add_argument('--epochs', type=int, default=50, help='Number of epochs to train.')
 
-    parser.add_argument('--lr', type=float, default=0.0001, help='Learning rate for the optimizer.')
+    parser.add_argument('--lr', type=float, default=0.001, help='Learning rate for the optimizer.')
 
     parser.add_argument('--momentum', type=float, default=0.9, help='Momentum for SGD optimizer.')
 

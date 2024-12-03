@@ -1,0 +1,9 @@
+albumentations==1.4.18
+effdet==0.4.1
+matplotlib==3.7.5
+numpy==1.24.4
+Pillow==11.0.0
+torch==2.0.1+cu117
+torchmetrics==1.5.2
+torchvision==0.15.2+cu117
+tqdm==4.67.0

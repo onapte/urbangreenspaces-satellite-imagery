@@ -2,6 +2,7 @@ import torch
 from torch.utils.data import DataLoader, Dataset
 import torchvision.transforms as T
 from itertools import chain
+import matplotlib.pyplot as plt
 
 from config import TRAIN_DIR, VAL_DIR, BATCH_SIZE, NUM_WORKERS, MODEL_BASE, IMAGE_SIZE
 from data_processing import Preprocessor, get_train_transforms, get_val_transforms
@@ -29,6 +30,11 @@ class GeoDataset(Dataset):
 
         self.labels = labels_encoded
         self.labels_mapping = labels_mapping
+
+    def visualize_image(self, idx):
+        image = self.PIL_images[idx]
+        plt.imshow(image)
+        plt.show()
 
     def __getitem__(self, idx):
         PIL_image = self.PIL_images[idx]
@@ -60,7 +66,9 @@ class GeoDataset(Dataset):
             
 
         transform_toTensor = T.ToTensor()
+        transform_Normalize = T.Normalize(mean=[0.485, 0.456, 0.406], std=[0.229, 0.224, 0.225])
         image_tensor = transform_toTensor(PIL_image)
+        image_tensor = transform_Normalize(image_tensor)
 
         bboxes_tensor = torch.FloatTensor(bboxes)
         labels_tensor = torch.LongTensor(labels)
